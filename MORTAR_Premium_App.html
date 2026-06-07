@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MORTAR | Build Your Wealth</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1410 50%, #2d1810 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #B91C1C 0%, #7F1D1D 100%);
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #F59E0B;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+        }
+
+        .header h1 i {
+            color: #F59E0B;
+            font-size: 1.4rem;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1.5px solid rgba(255,255,255,0.4);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(0.98);
+        }
+
+        .content {
+            padding: 20px 18px;
+            min-height: 68vh;
+            background: linear-gradient(180deg, #FAFAF8 0%, #F5F3F0 100%);
+        }
+
+        .screen { display: none; animation: fadeUp 0.35s ease-out; }
+        .screen.active { display: block; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-premium {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 12px rgba(185, 28, 28, 0.08);
+            border: 1px solid #f5e6e0;
+            transition: all 0.2s;
+        }
+
+        .card-premium:hover {
+            box-shadow: 0 8px 24px rgba(185, 28, 28, 0.12);
+        }
+
+        .card-elevated {
+            background: linear-gradient(135deg, #FEF2E8 0%, #FFFFFF 100%);
+            border-left: 5px solid #B91C1C;
+            box-shadow: 0 12px 24px -12px rgba(185, 28, 28, 0.15);
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0e6e0;
+        }
+
+        .stat-row:last-child { border-bottom: none; }
+        .stat-label { font-size: 0.85rem; color: #666; font-weight: 500; }
+        .stat-value { font-weight: 700; color: #B91C1C; font-size: 1.1rem; }
+        
+        .price-large {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #B91C1C;
+            margin: 8px 0 4px;
+            letter-spacing: -1px;
+        }
+
+        .badge-token {
+            display: inline-block;
+            background: linear-gradient(135deg, #F59E0B, #DC2626);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 40px;
+        }
+
+        .badge-discount {
+            display: inline-block;
+            background: #DC2626;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 40px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px 12px;
+            border: none;
+            border-radius: 48px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 12px;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #B91C1C 0%, #7F1D1D 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(185, 28, 28, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #991B1B 0%, #6B1515 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(185, 28, 28, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #B91C1C;
+            color: #B91C1C;
+        }
+
+        .btn-outline:hover {
+            background: #FEF2E8;
+            border-color: #7F1D1D;
+        }
+
+        .property-list-item {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            padding: 16px;
+            border: 2px solid #f0e6e0;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .property-list-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(185, 28, 28, 0.15);
+            border-color: #B91C1C;
+        }
+
+        .footer-nav {
+            display: flex;
+            background: #FFFFFF;
+            border-top: 2px solid #DC2626;
+            padding: 8px 20px 12px;
+            justify-content: space-between;
+            overflow-x: auto;
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            min-width: 60px;
+            font-size: 0.75rem;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            background: #FEF2E8;
+            color: #B91C1C;
+            font-weight: 700;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mt-2 { margin-top: 12px; }
+        .text-accent { color: #B91C1C; font-weight: 600; }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #f0e6e0;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #B91C1C;
+            box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+        }
+
+        .success-toast {
+            background: linear-gradient(135deg, #B91C1C 0%, #7F1D1D 100%);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .token-badge {
+            background: linear-gradient(135deg, #B91C1C 0%, #DC2626 100%);
+            color: white;
+            padding: 14px 16px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 16px rgba(185, 28, 28, 0.2);
+        }
+
+        .ai-portfolio-card {
+            background: linear-gradient(135deg, #FEF2E8 0%, #FFFFFF 100%);
+            border: 2px solid #B91C1C;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .portfolio-item {
+            background: linear-gradient(135deg, #FEF9F6, #FFFFFF);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 2px solid #f0e6e0;
+        }
+
+        .portfolio-percentage {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #B91C1C;
+            text-align: center;
+            margin: 8px 0;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0e6e0;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .rank-badge {
+            background: linear-gradient(135deg, #F59E0B, #DC2626);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .reward-card {
+            background: linear-gradient(135deg, #FEF9F6, #FFFFFF);
+            border: 2px dashed #B91C1C;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .achievement-badge {
+            background: white;
+            border: 2px solid #f0e6e0;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .achievement-badge.unlocked {
+            background: linear-gradient(135deg, #FEF2E8, #FFFFFF);
+            border-color: #B91C1C;
+        }
+
+        .achievement-badge:hover {
+            transform: translateY(-4px);
+            border-color: #B91C1C;
+        }
+
+        .achievement-icon {
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .achievement-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            margin: auto;
+        }
+
+        .modal-close {
+            float: right;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        #toastMessage {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 2000;
+            max-width: 460px;
+            margin: 0 auto;
+        }
+
+        .label-text {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+            margin-top: 12px;
+        }
+
+        .section-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #B91C1C;
+            margin: 20px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .yield-chip {
+            background: linear-gradient(135deg, #FEF2E8, #FFFFFF);
+            color: #B91C1C;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #B91C1C;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1><i class="fas fa-layer-group"></i>MORTAR</h1>
+            <button class="logout-btn" onclick="logoutApp()">Logout</button>
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="content">
+
+            <!-- LOGIN SCREEN -->
+            <div id="login-screen" class="screen active">
+                <div class="card-premium" style="margin-top: 60px; text-align: center;">
+                    <h2 style="font-size: 1.8rem; margin-bottom: 8px; color: #B91C1C;">Welcome to MORTAR</h2>
+                    <p style="color: #666; margin-bottom: 32px; font-size: 0.9rem;">Build Your Wealth • Real Estate Tokenized • Start from $100</p>
+                    <input type="email" class="input-field" placeholder="email@example.com" />
+                    <input type="password" class="input-field" placeholder="Password" />
+                    <button class="btn btn-primary" onclick="performLogin()">Sign In</button>
+                    <button class="btn btn-outline" onclick="performLogin()">Create Account</button>
+                </div>
+            </div>
+
+            <!-- DASHBOARD SCREEN -->
+            <div id="dashboard-screen" class="screen">
+                <div class="token-badge">
+                    💰 You have: <span id="userTokens">2,450</span> MORTAR Coins
+                </div>
+
+                <div class="card-elevated">
+                    <p class="stat-label">Your Portfolio Value</p>
+                    <div class="price-large">$24,550</div>
+                    <p style="font-size: 0.85rem; color: #10A050;"><i class="fas fa-arrow-up"></i> +$1,240 (5.3% YTD)</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card-premium">
+                        <p class="stat-label">Monthly Rental Income</p>
+                        <p class="stat-value">$1,680</p>
+                        <p style="font-size: 0.75rem; color: #B91C1C; margin-top: 4px;">📈 Projected</p>
+                    </div>
+                    <div class="card-premium">
+                        <p class="stat-label">Your Rank</p>
+                        <p class="stat-value">#47</p>
+                        <p style="font-size: 0.75rem; color: #B91C1C; margin-top: 4px;">🏆 Global</p>
+                    </div>
+                </div>
+
+                <div class="card-premium">
+                    <p class="stat-label" style="margin-bottom: 12px;">Quick Actions</p>
+                    <button class="btn btn-primary" style="font-size: 0.85rem;" onclick="goToScreen('ai-builder-screen')">🤖 AI Build Portfolio</button>
+                    <button class="btn btn-outline" style="font-size: 0.85rem;" onclick="goToScreen('browse-screen')">🔍 Browse Properties</button>
+                    <button class="btn btn-outline" style="font-size: 0.85rem; margin-bottom: 0;" onclick="goToScreen('rewards-screen')">🎁 Rewards</button>
+                </div>
+            </div>
+
+            <!-- BROWSE PROPERTIES SCREEN -->
+            <div id="browse-screen" class="screen">
+                <h2 style="margin-bottom: 12px; color: #B91C1C;">🌍 Global Properties</h2>
+                <input type="text" id="searchProp" class="input-field" placeholder="Search property..." oninput="filterProperties()" />
+                <div id="properties-container"></div>
+            </div>
+
+            <!-- AI PORTFOLIO BUILDER SCREEN -->
+            <div id="ai-builder-screen" class="screen">
+                <h2 style="margin-bottom: 12px; color: #B91C1C;">🤖 AI Portfolio Builder</h2>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 16px;">Smart allocation based on your goals</p>
+
+                <div class="card-premium">
+                    <label class="label-text">Investment Amount</label>
+                    <input type="number" id="aiAmount" class="input-field" placeholder="$10,000" value="10000" oninput="generateAIPortfolio()" />
+
+                    <label class="label-text">Investment Goal</label>
+                    <select id="aiGoal" class="input-field" onchange="generateAIPortfolio()">
+                        <option value="income">Monthly Income Focus</option>
+                        <option value="balanced">Balanced Returns</option>
+                        <option value="growth">Long-term Growth</option>
+                    </select>
+
+                    <label class="label-text">Investment Profile</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+                        <button id="profile-conservative" class="btn btn-outline" style="margin: 0; padding: 12px; font-size: 0.75rem;" onclick="selectAIProfile('conservative')">🛡️ Conservative</button>
+                        <button id="profile-moderate" class="btn btn-primary" style="margin: 0; padding: 12px; font-size: 0.75rem;" onclick="selectAIProfile('moderate')">⚖️ Moderate</button>
+                        <button id="profile-aggressive" class="btn btn-outline" style="margin: 0; padding: 12px; font-size: 0.75rem;" onclick="selectAIProfile('aggressive')">⚡ Aggressive</button>
+                    </div>
+                </div>
+
+                <div id="aiSuggestion" style="display: none;">
+                    <p style="font-weight: 700; margin-bottom: 16px; color: #B91C1C; font-size: 1.1rem;">📊 Recommended Portfolio</p>
+                    <div id="aiPortfolioList"></div>
+                    
+                    <div class="card-elevated" style="margin-bottom: 16px;">
+                        <div class="stat-row">
+                            <span class="stat-label">Est. Annual Return</span>
+                            <span class="stat-value" id="aiReturn">+$720</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Diversification</span>
+                            <span class="stat-value">3+ properties</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Bonus Coins</span>
+                            <span class="badge-token">+500</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="applyAIPortfolio()">✨ Apply Portfolio</button>
+                    <button class="btn btn-outline" onclick="goToScreen('dashboard-screen')">Cancel</button>
+                </div>
+            </div>
+
+            <!-- REWARDS & COMPETITION SCREEN -->
+            <div id="rewards-screen" class="screen">
+                <h2 style="margin-bottom: 12px; color: #B91C1C;">🎁 Rewards Center</h2>
+
+                <div class="section-header">
+                    <i class="fas fa-trophy"></i> Leaderboard
+                </div>
+                <div class="card-premium">
+                    <div class="leaderboard-item">
+                        <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                            <div class="rank-badge">🥇</div>
+                            <div>
+                                <strong style="color: #B91C1C;">Sarah M.</strong><br>
+                                <span style="font-size: 0.8rem; color: #666;">$157K Invested</span>
+                            </div>
+                        </div>
+                        <span style="font-weight: 700; color: #B91C1C;">+500</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                            <div class="rank-badge" style="background: linear-gradient(135deg, #C0C0C0, #808080);">🥈</div>
+                            <div>
+                                <strong style="color: #333;">John D.</strong><br>
+                                <span style="font-size: 0.8rem; color: #666;">$142K Invested</span>
+                            </div>
+                        </div>
+                        <span style="font-weight: 700; color: #B91C1C;">+300</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                            <div class="rank-badge" style="background: linear-gradient(135deg, #CD7F32, #A0522D);">🥉</div>
+                            <div>
+                                <strong style="color: #333;">You</strong><br>
+                                <span style="font-size: 0.8rem; color: #666;">$78.5K Invested</span>
+                            </div>
+                        </div>
+                        <span style="font-weight: 700; color: #B91C1C;">+100</span>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <i class="fas fa-star"></i> Daily Challenges
+                </div>
+                <div class="reward-card">
+                    <div style="font-weight: 700; color: #B91C1C; margin-bottom: 4px;">🎯 Make Your First Investment</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">Get 100 MORTAR Coins</div>
+                    <span class="badge-token">CLAIM NOW</span>
+                </div>
+                <div class="reward-card">
+                    <div style="font-weight: 700; color: #B91C1C; margin-bottom: 4px;">📤 Refer 3 Friends</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">50 Coins per referral</div>
+                    <span class="badge-token">IN PROGRESS (1/3)</span>
+                </div>
+                <div class="reward-card">
+                    <div style="font-weight: 700; color: #B91C1C; margin-bottom: 4px;">💰 Invest $5,000+</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-bottom: 8px;">Unlock premium + 250 Coins</div>
+                    <span class="badge-token">LOCKED</span>
+                </div>
+
+                <div class="section-header">
+                    <i class="fas fa-medal"></i> Achievements
+                </div>
+                <div class="achievement-grid">
+                    <div class="achievement-badge unlocked">
+                        <span class="achievement-icon">💎</span>
+                        <div class="achievement-name">Diamond</div>
+                    </div>
+                    <div class="achievement-badge unlocked">
+                        <span class="achievement-icon">🚀</span>
+                        <div class="achievement-name">First Step</div>
+                    </div>
+                    <div class="achievement-badge unlocked">
+                        <span class="achievement-icon">🌍</span>
+                        <div class="achievement-name">Global</div>
+                    </div>
+                    <div class="achievement-badge">
+                        <span class="achievement-icon">👑</span>
+                        <div class="achievement-name">King</div>
+                    </div>
+                    <div class="achievement-badge">
+                        <span class="achievement-icon">🎁</span>
+                        <div class="achievement-name">Refer Pro</div>
+                    </div>
+                    <div class="achievement-badge">
+                        <span class="achievement-icon">🏆</span>
+                        <div class="achievement-name">Millionaire</div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <i class="fas fa-tag"></i> Redeem Coins
+                </div>
+                <div class="card-premium">
+                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 12px;">Convert MORTAR Coins to real discounts:</p>
+                    <div class="stat-row">
+                        <span>250 Coins →</span>
+                        <span style="font-weight: 700; color: #B91C1C;">5% Discount</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>500 Coins →</span>
+                        <span style="font-weight: 700; color: #B91C1C;">10% Discount</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>1000 Coins →</span>
+                        <span style="font-weight: 700; color: #B91C1C;">$100 Credit</span>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 12px; margin-bottom: 0;" onclick="showToast('💰 Redeemed 250 MORTAR Coins for 5% discount!')">Redeem Discount</button>
+                </div>
+            </div>
+
+            <!-- PORTFOLIO SCREEN -->
+            <div id="portfolio-screen" class="screen">
+                <h2 style="margin-bottom: 12px; color: #B91C1C;">📋 Your Portfolio</h2>
+                <div id="portfolio-dynamic-list"></div>
+            </div>
+
+            <!-- BUY SCREEN -->
+            <div id="buy-screen" class="screen">
+                <h2 style="margin-bottom: 16px; color: #B91C1C;" id="propDetailName">Chelsea Penthouse</h2>
+                
+                <div class="card-elevated">
+                    <p class="stat-label">Property Value</p>
+                    <p class="stat-value" id="propValueText">$3.8M</p>
+                    <p class="stat-label" style="margin-top: 12px;">Expected Annual Yield</p>
+                    <p class="stat-value" id="propYieldText">8.2%</p>
+                </div>
+
+                <div class="card-premium">
+                    <label class="label-text">Number of Shares</label>
+                    <input type="number" id="shareQty" class="input-field" placeholder="1" value="1" />
+                    
+                    <div class="stat-row">
+                        <span class="stat-label">Total Cost</span>
+                        <span class="stat-value" id="totalCostPreview">$3,800</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Network Fee</span>
+                        <span style="font-size: 0.9rem;">$42</span>
+                    </div>
+                    <div class="stat-row" style="border-top: 2px solid #DC2626; margin-top: 12px; padding-top: 12px;">
+                        <span style="font-weight: 700; color: #B91C1C;">Total Due</span>
+                        <span class="stat-value" id="totalWithFee">$3,842</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="finalizeInvestment()">Complete Investment</button>
+                <button class="btn btn-outline" onclick="goToScreen('browse-screen')">Back</button>
+            </div>
+        </div>
+
+        <!-- FOOTER NAVIGATION -->
+        <div class="footer-nav">
+            <div class="nav-item active" onclick="switchNav('dashboard-screen', this)">
+                <i class="fas fa-home"></i><br>Home
+            </div>
+            <div class="nav-item" onclick="switchNav('browse-screen', this)">
+                <i class="fas fa-magnifying-glass"></i><br>Invest
+            </div>
+            <div class="nav-item" onclick="switchNav('ai-builder-screen', this)">
+                <i class="fas fa-robot"></i><br>AI
+            </div>
+            <div class="nav-item" onclick="switchNav('portfolio-screen', this)">
+                <i class="fas fa-chart-pie"></i><br>Portfolio
+            </div>
+            <div class="nav-item" onclick="switchNav('rewards-screen', this)">
+                <i class="fas fa-gift"></i><br>Rewards
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toastMessage"></div>
+
+    <script>
+        let portfolioHoldings = [
+            { name: "Chelsea Penthouse", shares: 3, value: 11400, yieldPercent: 8.2, currentPrice: 3800 },
+            { name: "Boston Brownstone", shares: 5, value: 6000, yieldPercent: 6.5, currentPrice: 1200 },
+            { name: "Austin Tech Tower", shares: 2, value: 15600, yieldPercent: 7.4, currentPrice: 7800 },
+        ];
+
+        let userTokens = 2450;
+        let selectedProperty = { name: "Chelsea Penthouse", value: 3800000, yield: 8.2, sharePrice: 3800 };
+        let selectedAIProfile = 'moderate';
+
+        const propertyDB = [
+            { id: 1, name: "Chelsea Penthouse", location: "Manhattan, NY", price: 3800000, yield: 8.2, sharePrice: 3800 },
+            { id: 2, name: "Boston Brownstone", location: "Back Bay, MA", price: 1200000, yield: 6.5, sharePrice: 1200 },
+            { id: 3, name: "Miami Beach Resort", location: "South Beach, FL", price: 5500000, yield: 9.1, sharePrice: 5500 },
+            { id: 4, name: "Austin Tech Tower", location: "Downtown, TX", price: 7800000, yield: 7.4, sharePrice: 7800 },
+            { id: 5, name: "Dubai Luxury Towers", location: "Downtown Dubai", price: 8400000, yield: 8.9, sharePrice: 8400 },
+            { id: 6, name: "Singapore Marina Bay", location: "Marina Bay", price: 6800000, yield: 9.3, sharePrice: 6800 }
+        ];
+
+        const aiPortfolios = {
+            income: {
+                conservative: [
+                    { name: "Boston Brownstone", percentage: 40, yield: 6.5 },
+                    { name: "Austin Tech Tower", percentage: 35, yield: 7.4 },
+                    { name: "Chelsea Penthouse", percentage: 25, yield: 8.2 }
+                ],
+                moderate: [
+                    { name: "Miami Beach Resort", percentage: 45, yield: 9.1 },
+                    { name: "Boston Brownstone", percentage: 35, yield: 6.5 },
+                    { name: "Chelsea Penthouse", percentage: 20, yield: 8.2 }
+                ],
+                aggressive: [
+                    { name: "Miami Beach Resort", percentage: 50, yield: 9.1 },
+                    { name: "Singapore Marina Bay", percentage: 35, yield: 9.3 },
+                    { name: "Chelsea Penthouse", percentage: 15, yield: 8.2 }
+                ]
+            },
+            balanced: {
+                conservative: [
+                    { name: "Chelsea Penthouse", percentage: 40, yield: 8.2 },
+                    { name: "Boston Brownstone", percentage: 35, yield: 6.5 },
+                    { name: "Austin Tech Tower", percentage: 25, yield: 7.4 }
+                ],
+                moderate: [
+                    { name: "Chelsea Penthouse", percentage: 35, yield: 8.2 },
+                    { name: "Austin Tech Tower", percentage: 35, yield: 7.4 },
+                    { name: "Miami Beach Resort", percentage: 30, yield: 9.1 }
+                ],
+                aggressive: [
+                    { name: "Dubai Luxury Towers", percentage: 40, yield: 8.9 },
+                    { name: "Singapore Marina Bay", percentage: 35, yield: 9.3 },
+                    { name: "Miami Beach Resort", percentage: 25, yield: 9.1 }
+                ]
+            },
+            growth: {
+                conservative: [
+                    { name: "Austin Tech Tower", percentage: 45, yield: 7.4 },
+                    { name: "Chelsea Penthouse", percentage: 35, yield: 8.2 },
+                    { name: "Boston Brownstone", percentage: 20, yield: 6.5 }
+                ],
+                moderate: [
+                    { name: "Austin Tech Tower", percentage: 40, yield: 7.4 },
+                    { name: "Dubai Luxury Towers", percentage: 35, yield: 8.9 },
+                    { name: "Singapore Marina Bay", percentage: 25, yield: 9.3 }
+                ],
+                aggressive: [
+                    { name: "Singapore Marina Bay", percentage: 45, yield: 9.3 },
+                    { name: "Dubai Luxury Towers", percentage: 40, yield: 8.9 },
+                    { name: "Miami Beach Resort", percentage: 15, yield: 9.1 }
+                ]
+            }
+        };
+
+        function refreshBrowseProperties() {
+            const container = document.getElementById('properties-container');
+            if(!container) return;
+            container.innerHTML = '';
+            propertyDB.forEach(prop => {
+                const card = document.createElement('div');
+                card.className = 'property-list-item';
+                card.onclick = () => selectPropertyForBuy(prop);
+                card.innerHTML = `
+                    <div class="flex-between">
+                        <span style="color: #333; font-weight: 700;"><i class="fas fa-building"></i> ${prop.name}</span>
+                        <span class="yield-chip">${prop.yield}% APY</span>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 4px;"><i class="fas fa-location-dot"></i> ${prop.location}</div>
+                    <div style="margin-top: 8px; font-size: 0.9rem; color: #666;">$${(prop.price/1000000).toFixed(1)}M • $${prop.sharePrice.toLocaleString()}/share</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterProperties() {
+            const query = document.getElementById('searchProp')?.value.toLowerCase() || '';
+            const container = document.getElementById('properties-container');
+            if(!container) return;
+            const filtered = propertyDB.filter(p => p.name.toLowerCase().includes(query) || p.location.toLowerCase().includes(query));
+            container.innerHTML = '';
+            filtered.forEach(prop => {
+                const card = document.createElement('div');
+                card.className = 'property-list-item';
+                card.onclick = () => selectPropertyForBuy(prop);
+                card.innerHTML = `
+                    <div class="flex-between"><span style="color: #333; font-weight: 700;">${prop.name}</span><span class="yield-chip">${prop.yield}% APY</span></div>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 4px;">${prop.location}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function selectPropertyForBuy(prop) {
+            selectedProperty = { name: prop.name, value: prop.price, yield: prop.yield, sharePrice: prop.sharePrice };
+            document.getElementById('propDetailName').innerText = prop.name;
+            document.getElementById('propValueText').innerText = `$${(prop.price/1000000).toFixed(1)}M`;
+            document.getElementById('propYieldText').innerText = `${prop.yield}% APY`;
+            document.getElementById('shareQty').value = 1;
+            const qty = 1;
+            document.getElementById('totalCostPreview').innerText = `$${(qty * prop.sharePrice).toLocaleString()}`;
+            document.getElementById('totalWithFee').innerText = `$${(qty * prop.sharePrice + 42).toLocaleString()}`;
+            goToScreen('buy-screen');
+        }
+
+        document.addEventListener('input', function(e) {
+            if(e.target.id === 'shareQty') {
+                let qty = parseInt(e.target.value) || 1;
+                if(qty < 1) qty = 1;
+                const cost = qty * selectedProperty.sharePrice;
+                document.getElementById('totalCostPreview').innerText = `$${cost.toLocaleString()}`;
+                document.getElementById('totalWithFee').innerText = `$${(cost + 42).toLocaleString()}`;
+            }
+        });
+
+        function generateAIPortfolio() {
+            const amount = parseInt(document.getElementById('aiAmount')?.value || 10000);
+            const goal = document.getElementById('aiGoal')?.value || 'balanced';
+            const portfolio = aiPortfolios[goal][selectedAIProfile];
+            
+            const container = document.getElementById('aiPortfolioList');
+            container.innerHTML = '';
+            
+            let totalYield = 0;
+            portfolio.forEach((prop, idx) => {
+                const investAmount = (amount * prop.percentage) / 100;
+                totalYield += (investAmount * prop.yield / 100);
+                
+                const card = document.createElement('div');
+                card.className = 'portfolio-item';
+                card.innerHTML = `
+                    <div class="flex-between" style="margin-bottom: 8px;">
+                        <span style="font-weight: 600; color: #333;">${prop.name}</span>
+                        <span class="yield-chip">${prop.yield}% APY</span>
+                    </div>
+                    <div class="portfolio-percentage">${prop.percentage}%</div>
+                    <div style="text-align: center; color: #666; font-size: 0.85rem;">$${investAmount.toLocaleString(undefined, {maximumFractionDigits: 0})} allocation</div>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('aiReturn').innerText = `+$${Math.round(totalYield).toLocaleString()}`;
+            document.getElementById('aiSuggestion').style.display = 'block';
+        }
+
+        function selectAIProfile(profile) {
+            selectedAIProfile = profile;
+            ['conservative', 'moderate', 'aggressive'].forEach(p => {
+                const el = document.getElementById(`profile-${p}`);
+                if(el) {
+                    el.classList.toggle('btn-primary', p === profile);
+                    el.classList.toggle('btn-outline', p !== profile);
+                }
+            });
+            generateAIPortfolio();
+        }
+
+        function applyAIPortfolio() {
+            userTokens += 500;
+            document.getElementById('userTokens').innerText = userTokens.toLocaleString();
+            showToast(`✅ Portfolio applied! +500 MORTAR Coins earned!`);
+            goToScreen('dashboard-screen');
+        }
+
+        function finalizeInvestment() {
+            const qty = parseInt(document.getElementById('shareQty')?.value || 1);
+            const totalCost = qty * selectedProperty.sharePrice;
+            const existingIdx = portfolioHoldings.findIndex(p => p.name === selectedProperty.name);
+            if(existingIdx !== -1) {
+                portfolioHoldings[existingIdx].shares += qty;
+                portfolioHoldings[existingIdx].value += totalCost;
+            } else {
+                portfolioHoldings.push({
+                    name: selectedProperty.name,
+                    shares: qty,
+                    value: totalCost,
+                    yieldPercent: selectedProperty.yield,
+                    currentPrice: selectedProperty.sharePrice
+                });
+            }
+            userTokens += 100;
+            document.getElementById('userTokens').innerText = userTokens.toLocaleString();
+            updatePortfolioUI();
+            showToast(`✅ Investment complete! +100 MORTAR Coins earned!`);
+            goToScreen('dashboard-screen');
+        }
+
+        function updatePortfolioUI() {
+            const container = document.getElementById('portfolio-dynamic-list');
+            if(!container) return;
+            container.innerHTML = '';
+            portfolioHoldings.forEach(holding => {
+                const div = document.createElement('div');
+                div.className = 'property-list-item';
+                div.innerHTML = `
+                    <div class="flex-between"><span style="color: #333; font-weight: 700;">${holding.name}</span><span class="yield-chip">${holding.yieldPercent}% APY</span></div>
+                    <div style="font-size: 0.85rem; color: #666; margin-top: 4px;">${holding.shares} shares • $${holding.value.toLocaleString()}</div>
+                    <div style="margin-top: 8px; font-size: 0.9rem; color: #B91C1C;">Est. dividend $${(holding.value * 0.07 / 12).toFixed(0)}/mo</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function performLogin() {
+            goToScreen('dashboard-screen');
+            showToast("🔑 Welcome to MORTAR — build your wealth!");
+            updatePortfolioUI();
+        }
+
+        function goToScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
+            if(id === 'portfolio-screen') updatePortfolioUI();
+            if(id === 'browse-screen') refreshBrowseProperties();
+            if(id === 'ai-builder-screen') generateAIPortfolio();
+        }
+
+        function switchNav(screenId, btn) {
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            goToScreen(screenId);
+        }
+
+        function logoutApp() {
+            goToScreen('login-screen');
+            showToast("Securely logged out.");
+        }
+
+        function showToast(msg) {
+            let toastDiv = document.getElementById('toastMessage');
+            toastDiv.innerHTML = `<div class="success-toast"><i class="fas fa-check-circle"></i> ${msg}</div>`;
+            setTimeout(() => { toastDiv.innerHTML = ''; }, 3500);
+        }
+
+        window.onload = () => {
+            refreshBrowseProperties();
+            updatePortfolioUI();
+            generateAIPortfolio();
+        };
+    </script>
+</body>
+</html>
